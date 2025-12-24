@@ -1,15 +1,3 @@
-<ul>
-    {{range .}}
-        <li>
-            <a 
-                hx-get="/games/{{.ID}}"
-                hx-target="#game-detail"
-                hx-push-url="true">
-                {{.Title}}
-            </a>
-        </li>
-    {{end}}
-</ul>
-
-<!-- Placeholder for game details -->
-<div id="game-detail"></div>
+{{range .}}
+<a href="/{{.Platform}}/{{.ID}}" class="rom-link text-primary">{{.Title}}</a>
+{{end}}

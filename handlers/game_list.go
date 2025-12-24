@@ -4,6 +4,8 @@ import (
 	"html/template" // however you organize template parsing
 	"net/http"
 	"romdb-api/internal/dataset"
+	"sort"
+	"strings"
 
 	"github.com/go-chi/chi/v5"
 )
@@ -24,15 +26,21 @@ func GameList(w http.ResponseWriter, r *http.Request) {
 	}
 
 	type Game struct {
-		ID    string
-		Title string
+		ID       string
+		Title    string
+		Platform string
 	}
 
 	var games []Game
 	for id, entry := range d.Entries {
 		title, _ := entry["canonical_title"].(string)
-		games = append(games, Game{ID: id, Title: title})
+		platform, _ := entry["platform"].(string)
+		games = append(games, Game{ID: id, Title: title, Platform: strings.ToLower(platform)})
 	}
+
+	sort.Slice(games, func(i, j int) bool {
+		return strings.ToLower(games[i].Title) < strings.ToLower(games[j].Title)
+	})
 
 	w.Header().Set("Content-Type", "text/html: charset=utf-8")
 	if err := game_list_tmpl.Execute(w, games); err != nil {
@@ -41,7 +49,9 @@ func GameList(w http.ResponseWriter, r *http.Request) {
 }
 
 func GameDetail(w http.ResponseWriter, r *http.Request) {
+	platform := chi.URLParam(r, "platform")
 	id := chi.URLParam(r, "id")
+
 	d, err := dataset.Load()
 	if err != nil {
 		http.Error(w, "dataset unavailable", 500)
@@ -51,6 +61,12 @@ func GameDetail(w http.ResponseWriter, r *http.Request) {
 	entry, ok := d.Entries[id]
 	if !ok {
 		http.NotFound(w, r)
+		return
+	}
+
+	entryPlatform := strings.ToLower(entry["platform"].(string))
+	if entryPlatform != platform {
+		http.Error(w, "game not found on this platform", http.StatusNotFound)
 		return
 	}
 

@@ -14,9 +14,18 @@ import (
 func main() {
 
 	templates_dir := "templates"
-	game_list_tmpl := template.Must(template.ParseFiles(filepath.Join(templates_dir, "game_list.html")))
-	game_detail_tmpl := template.Must(template.ParseFiles(filepath.Join(templates_dir, "game_detail.html")))
-	index_tmpl := template.Must(template.ParseFiles(filepath.Join(templates_dir, "index.html")))
+	game_list_tmpl := template.Must(template.ParseFiles(
+		filepath.Join(templates_dir, "game_list.html"),
+		filepath.Join(templates_dir, "nav.html"),
+	))
+	game_detail_tmpl := template.Must(template.ParseFiles(
+		filepath.Join(templates_dir, "game_detail.html"),
+		filepath.Join(templates_dir, "nav.html"),
+	))
+	index_tmpl := template.Must(template.ParseFiles(
+		filepath.Join(templates_dir, "index.html"),
+		filepath.Join(templates_dir, "nav.html"),
+	))
 
 	handlers.SetIndexTemplate(index_tmpl)
 	handlers.SetGameTemplates(game_list_tmpl, game_detail_tmpl)
@@ -29,7 +38,7 @@ func main() {
 
 	r.Get("/", handlers.Index)
 	r.Get("/games", handlers.GameList)
-	r.Get("/games/{id}", handlers.GameDetail)
+	r.Get("/{platform}/{id}", handlers.GameDetail)
 
 	log.Println("Server running on :3000")
 	if err := http.ListenAndServe(":3000", r); err != nil {

@@ -10,7 +10,7 @@
     --accent-primary: #4b5563;
     --accent-secondary: #f9fafb;
     --theme-text-primary: #1f2937;
-    --theme-text-seconday: #4b5563;
+    --theme-text-secondary: #4b5563;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,15 +18,26 @@
         --html-background: #18181b;
         --body-background: #27272a;
         --accent-primary: #3f3f46;
-        --accent-secondary: ;
+        --accent-secondary: #e4e4e7;
         --theme-text-primary: #e4e4e7;
-        --theme-text-seconday: #3f3f46;
+        --theme-text-secondary: #3f3f46;
     }
 }
 
+
+/* CUSTOM CLASSES */
+.text-primary {
+    color: var(--theme-text-primary);
+}
+
+.text-secondary {
+    color: var(--theme-text-secondary)
+}
+
+
+
 html {
     background-color: var(--html-background);
-    color: var(--theme-text-primary);
     font-size: 16px;
     font-family: "Helvetica", "Trebuchet MS", "Verdana", sans-serif;
 }
@@ -64,6 +75,34 @@ nav p {
     margin-top: 0.5rem;
 }
 
+
+
 section {
     padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+#game-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    padding-block: 2em;
+}
+
+.rom-link {
+    text-decoration: none;
+}
+.rom-link:hover {
+    text-decoration: underline;
+    opacity: 0.5;
+}
+
+.body-title {
+    
+}
+
+.body-subtitle {
+    opacity: 0.5;
+    font-weight: 200;
 }

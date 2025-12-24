@@ -1,11 +1,26 @@
-<h3>{{.canonical_display_name}}</h3>
+<!DOCTYPE html>
+<html lang="en" class="theme adaptive">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/static/css/styles.css">
+        <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
+        <title>{{.canonical_title}} | The RomDB Archive</title>
+    </head>
+    <body>
+        {{template "nav"}}
+        <section>
+            <h3>{{.canonical_title}}</h3>
 
-<h4>Aliases</h4>
-<ul>
-    {{range .aliases}}
-        <li>{{.}}</li>
-    {{end}}
-</ul>
+            <h4>Aliases</h4>
+            <ul>
+                {{range .aliases}}
+                    <li>{{.}}</li>
+                {{end}}
+            </ul>
 
-<h4>Canonical Rename</h4>
-<p>{{.canonical_rename}}</p>
+            <h4>Corrected Filename</h4>
+            <p>{{.corrected_filename}}</p>
+        </section>
+    </body>
+</html>

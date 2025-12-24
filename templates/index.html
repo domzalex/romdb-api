@@ -8,19 +8,18 @@
         <title>The RomDB Archive</title>
     </head>
     <body>
-        <nav>
-            <h1>The RomDB Archive</h1>
-            <p>An ever-growing collection of sanitized file names for video game ROMs.</p>
-        </nav>
-        <section>
-            <div 
-                id="games-list"
-                hx-get="/games"
-                hx-trigger="load"
-                hx-target="#games-list"
-                hx-swap="innerHTML">
-                Loading games...
+        {{template "nav"}}
+        <section 
+            id="game-list-container"
+            hx-get="/games"
+            hx-trigger="load"
+            hx-target="#game-list"
+            hx-swap="innerHTML">
+            <div>
+                <h1 class="body-title text-primary">Up To Date ROM List</h1>
+                <p class="body-subtitle text-primary">Click on ROM for metadata</p>
             </div>
+            <div id="game-list"></div>
         </section>
     </body>
 </html>
