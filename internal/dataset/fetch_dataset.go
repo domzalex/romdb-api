@@ -1,4 +1,4 @@
-package main
+package dataset
 
 import (
 	"encoding/json"
@@ -6,6 +6,14 @@ import (
 	"sync"
 	"time"
 )
+
+type Entry map[string]any
+
+type Dataset struct {
+	Version string           `json:"version"`
+	Count   int              `json:"count"`
+	Entries map[string]Entry `json:"entries"`
+}
 
 var (
 	cache      *Dataset

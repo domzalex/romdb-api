@@ -1,0 +1,11 @@
+<h3>{{.canonical_display_name}}</h3>
+
+<h4>Aliases</h4>
+<ul>
+    {{range .aliases}}
+        <li>{{.}}</li>
+    {{end}}
+</ul>
+
+<h4>Canonical Rename</h4>
+<p>{{.canonical_rename}}</p>

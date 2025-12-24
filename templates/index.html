@@ -13,8 +13,14 @@
             <p>An ever-growing collection of sanitized file names for video game ROMs.</p>
         </nav>
         <section>
-            <h1>Here is some header text.</h1>
-            <p>Underneath is some basic paragraph text.</p>
+            <div 
+                id="games-list"
+                hx-get="/games"
+                hx-trigger="load"
+                hx-target="#games-list"
+                hx-swap="innerHTML">
+                Loading games...
+            </div>
         </section>
     </body>
 </html>
